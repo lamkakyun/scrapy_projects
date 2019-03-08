@@ -2,7 +2,6 @@
 from scrapy.spiders import Rule, CrawlSpider
 from scrapy.linkextractors import LinkExtractor
 from scrapy.loader import ItemLoader
-# from ..misc import config as conf
 from scrapy_ip.items import ScrapyIpItem
 
 class Ipspider1Spider(CrawlSpider):
