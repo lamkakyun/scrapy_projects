@@ -40,8 +40,9 @@ def step2():
         
         return _queue
     
-    def _check_proxy(q, db_session):
-        # _name = threading.currentThread().getName()
+    def _run(q, db_session):
+        _name = threading.currentThread().getName()
+        print(_name, ' start')
         while (q.qsize() > 0):
             data = q.get()
             # ip_port = d[0]
@@ -55,7 +56,7 @@ def step2():
         _ip, _port = ip_port.split(':')
 
         is_ok = lam_tools.check_ip_proxy_with_sock(_ip, int(_port), int(config['TOOL']['ip_proxy_timeout']))
-        print(_ip, _port, is_ok)
+        print(_ip, _port, '【bingo】' if is_ok else '*fail*')
     
         if is_ok:
             save_data = {'fail_num': 0, 'is_ok': 1, 'uptime': _now_time}
@@ -70,9 +71,8 @@ def step2():
         _name = "thread %d" % i
         # sqlalchemy 的session 创建的线程 和 使用的线程必须一直，否则报错,所以才创建多个session，提供多个线程
         db_session = db_helper.get_ip_pool_session()
-        t = threading.Thread(target=_check_proxy, name=_name, args=(_queue, db_session))
+        t = threading.Thread(target=_run, name=_name, args=(_queue, db_session))
         t.start()
-        t.join() # 如果没有 join，主线程不等待，直接退出
 
 if __name__ == '__main__':
     step1()
