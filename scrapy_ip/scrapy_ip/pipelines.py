@@ -39,10 +39,11 @@ class ScrapyIpPipeline(object):
     def process_item(self, item, spider):
         if not item:
             return
-        
+
         ip_port = "%s:%s" % (item['ip'].pop(), item['port'].pop())
         is_https = 1 if item['is_https'].pop().upper() == 'HTTPS' else 0
-        hide_level = 2 if item['hide_level'] == '高匿' else 1
+        _hide_level = item['hide_level'].pop()
+        hide_level = 2 if _hide_level == '高匿' or _hide_level == '高匿名' else 1
         uptime = int(time.time())
         
         self.cursor.execute("SELECT * FROM ip_pool WHERE ip_port=?", (ip_port, ))
