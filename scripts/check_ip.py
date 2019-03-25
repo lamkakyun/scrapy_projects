@@ -101,7 +101,7 @@ def step2():
     _queue = _build_queue()
 
     # python 的线程有点不一样，join不能start之后，调用，否则其他 线程 start 不起来
-    threads = [];
+    threads = []
     for i in range(int(thread_num)):
         _name = "thread %d" % i
         # sqlalchemy 的session 创建的线程 和 使用的线程必须一直，否则报错,所以才创建多个session，提供多个线程
