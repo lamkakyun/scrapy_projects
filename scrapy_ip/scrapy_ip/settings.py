@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os
+
 BOT_NAME = 'scrapy_ip'
 
 SPIDER_MODULES = ['scrapy_ip.spiders']

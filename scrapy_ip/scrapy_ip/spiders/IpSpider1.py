@@ -32,5 +32,4 @@ class Ipspider1Spider(CrawlSpider):
             item = item_loader.load_item()
 
             # print(item)
-
             yield item
