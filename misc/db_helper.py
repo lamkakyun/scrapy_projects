@@ -15,6 +15,13 @@ def get_ip_pool_session():
     session = DBSessinon() 
     return session
 
+def get_word_session():
+    db_path = mix_config.MC_WORD_DB
+    engine = sqlalchemy.create_engine("sqlite:///" + db_path)
+    DBSessinon = sqlalchemy.orm.sessionmaker(bind=engine)
+    session = DBSessinon() 
+    return session
+
 # def get_ip_old_pool_session():
 #     """create ip pool sqlite session"""
 #     db_path = mix_config.MC_IP_OLD_DB
