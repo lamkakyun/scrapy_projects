@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import os
+
 BOT_NAME = 'scrapy_ip'
 
 SPIDER_MODULES = ['scrapy_ip.spiders']
@@ -10,29 +10,29 @@ NEWSPIDER_MODULE = 'scrapy_ip.spiders'
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False  # 不服从 爬虫规则
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 1
 
 # Configure a delay for requests for the same website (default: 0)
-DOWNLOAD_DELAY = 5
+DOWNLOAD_DELAY = 5  # 同一个网站，延迟请求
 
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
-# Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = True
+COOKIES_DEBUG = True  # log all cookies sent in requests
 
 # Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
+TELNETCONSOLE_ENABLED = True
 
-# Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+# DefaultHeadersMiddleware
+DEFAULT_REQUEST_HEADERS = {
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'Accept-Language': 'en',
+}
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
@@ -80,3 +80,12 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 LOG_LEVEL = 'ERROR'
+DOWNLOAD_TIMEOUT = 180   # DownloadTimeoutMiddleware
+COMPRESSION_ENABLED = True  # HttpCompressionMiddleware
+RETRY_ENABLED = True  # RetryMiddleware
+RETRY_TIMES = 2
+RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408]
+DOWNLOADER_STATS = True # DownloaderStats middleware
+
+HTTPERROR_ALLOWED_CODES =  [] # 运行进行处理 的 error code 
+HTTPERROR_ALLOW_ALL = False
