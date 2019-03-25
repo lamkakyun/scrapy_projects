@@ -31,6 +31,6 @@ def get_ip_proxy_list(size = 10):
     
     ret = []
     for d in data:
-        ret.append(d)
+        ret.append(d[0])
 
     return ret
