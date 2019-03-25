@@ -12,20 +12,24 @@ class ProxytestSpider(scrapy.Spider):
     allowed_domains = ['ip.cn']
     test_url = 'https://ip.cn/'
 
+    custom_settings = {
+        'ITEM_PIPELINES': {},
+        # 'DOWNLOAD_TIMEOUT': 5
+    }
+
     def start_requests(self):
         print('start_requesting...')
 
         proxies = db_helper.get_ip_proxy_list(10)
         print(proxies)
         for d in proxies:
-            # _ip, _port = d.split(':')
             proxy_url = 'http://%s' % d
-            # print(proxy_url)
             yield scrapy.Request(url=self.test_url, callback=self.parse, meta={'proxy': proxy_url})
 
 
     def parse(self, response):
-        # print(response.body)
+        print('parsing...')
+        # print(response.body, response.text)
         data = response.xpath('//div[@id="result"]//code')
         for d in data:
             print(d.get())

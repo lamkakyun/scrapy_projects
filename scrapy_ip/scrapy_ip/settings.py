@@ -10,7 +10,7 @@ NEWSPIDER_MODULE = 'scrapy_ip.spiders'
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False  # 不服从 爬虫规则
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 CONCURRENT_REQUESTS = 1
@@ -82,3 +82,10 @@ ITEM_PIPELINES = {
 LOG_LEVEL = 'ERROR'
 DOWNLOAD_TIMEOUT = 180   # DownloadTimeoutMiddleware
 COMPRESSION_ENABLED = True  # HttpCompressionMiddleware
+RETRY_ENABLED = True  # RetryMiddleware
+RETRY_TIMES = 2
+RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408]
+DOWNLOADER_STATS = True # DownloaderStats middleware
+
+HTTPERROR_ALLOWED_CODES =  [] # 运行进行处理 的 error code 
+HTTPERROR_ALLOW_ALL = False
