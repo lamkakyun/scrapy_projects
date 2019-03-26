@@ -20,4 +20,4 @@ class ShanbaySpider(CrawlSpider):
     ]
 
     def parse_start_url(self, response):
-        pass
+        print(response.text)
